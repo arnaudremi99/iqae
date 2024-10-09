@@ -1,0 +1,36 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Distribution/packaging
+build/
+dist/
+*.egg-info/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Images/Figures
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+
+# IDE settings
+.vscode/
+.idea/
+
+# macOS specific
+.DS_Store
