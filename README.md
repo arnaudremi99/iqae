@@ -1,14 +1,10 @@
 # Iterative Quantum Annealing Eigensolver (IQAE)
 
-Iterative Quantum Annealing Eigensolver (IQAE) is a Python-based solver designed to compute eigenvalues and eigenvectors using quantum annealing techniques. It leverages iterative approaches to enhance accuracy and performance on quantum hardware or simulators.
+Iterative Quantum Annealing Eigensolver (IQAE) is a solver designed to solve standard and generalized eigenvalue problems using D-Wave's quantum annealing hardware.
 
 ## Table of Contents
 - [Installation](#installation)
-- [Usage](#usage)
-- [Algorithm Overview](#algorithm-overview)
 - [Examples](#examples)
-- [Dependencies](#dependencies)
-- [Contributing](#contributing)
 ---
 
 ## Installation
@@ -25,14 +21,18 @@ cd IQAE
 pip install -r requirements.txt
 ```
 
-## Usage
-
-## Algorithm Overview
-
 ## Examples
+Helmholtz problem (coarse solution) :
+```bash
+cd example1
+python3 example1.py
+```
 
-## Dependencies
+Helmholtz problem (refined solution) :
+```bash
+cd example2
+python3 example2.py
+```
 
-## Contributing
 
 
