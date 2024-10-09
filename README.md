@@ -12,23 +12,23 @@ To use the IQAE solver, you can clone the repository and install the necessary d
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/IQAE.git
+git clone git@github.com:arnaudremi99/iqae.git
 
 # Navigate to the project directory
-cd IQAE
+cd iqae
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
 ## Examples
-Helmholtz problem (coarse solution) :
+Example 1 - Helmholtz problem (coarse solution) :
 ```bash
 cd example1
 python3 example1.py
 ```
 
-Helmholtz problem (refined solution) :
+Example 2 - Helmholtz problem (refined solution) :
 ```bash
 cd example2
 python3 example2.py
