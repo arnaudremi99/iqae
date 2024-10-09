@@ -1,0 +1,11 @@
+numpy
+matplotlib
+ipython
+pandas
+xlrd
+scipy
+tqdm
+qutip
+dwave-system
+dimod
+neal
