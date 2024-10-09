@@ -82,6 +82,8 @@ class Solver():
             u = self.solve_QA()
         elif self.solver_parameters.solver_type == 'SA':
             u = self.solve_SA()
+        elif self.solver_parameters.solver_type == 'customSA':
+            u = self.solve_customSA()
         else:
             print('error : unknown solver type')
         return u
@@ -214,9 +216,47 @@ class Solver():
 
 
         Q_dict   = self.matrix_to_dict(Q)
-        #sampler  = EmbeddingComposite(DWaveSampler())
+        sampler  = EmbeddingComposite(DWaveSampler())
+
+        S        = sampler.sample_qubo(Q_dict, num_reads=self.solver_parameters.numreads, annealing_time=self.solver_parameters.annealingtime, fast_anneal=fast_anneal, label='IQAE')
+        q        = logical_solution(S,Q_dict,self.data_problem.N,self.data_problem.K)
+        v        = to_decimal(q, self.data_problem.N, self.data_problem.K, self.data_solution.u, self.data_solution.dz)
+        return v
+
+    def solve_SA(self):
+        # Checks annealing type
+        if self.solver_parameters.annealingtime < 0.5:
+            print(f'annealing time = {1000*self.solver_parameters.annealingtime} ns < 500 ns, fast annealing protocol is selected')
+            fast_anneal=True
+        else:
+            fast_anneal=False
+
+        def logical_solution(sample_set,Q,N,K):
+            q = list( sample_set.first.sample.values() )
+            k = 0
+            Q_mapping = defaultdict(int)  # keys are the logical variables, values are the index at which they are stored
+            for vars in list(sample_set.variables):
+                if vars in range(0,N*K):
+                    Q_mapping[vars] += k
+                k+=1
+            q_logical = np.zeros([N*K])
+            for i in range(N*K):
+                q_logical[i] = q[Q_mapping[(i)]]
+            return q_logical
+
+        
+        Q = self.get_qubo()
+
+        noise = True
+        if noise==True:
+            maxval = max([abs(Q.max()), abs(Q.min())])
+            for i in range(len(Q)):
+                for j in range(len(Q)):
+                    Q[i,j] += (np.random.normal(0, self.solver_parameters.perturbation)) * maxval
+
+
+        Q_dict   = self.matrix_to_dict(Q)
         sampler = neal.SimulatedAnnealingSampler()
-        #sampler = QBSolv()
 
         S        = sampler.sample_qubo(Q_dict, num_reads=self.solver_parameters.numreads, annealing_time=self.solver_parameters.annealingtime, fast_anneal=fast_anneal, label='IQAE')
         q        = logical_solution(S,Q_dict,self.data_problem.N,self.data_problem.K)
@@ -224,7 +264,7 @@ class Solver():
         return v
 
 
-    def solve_SA(self):
+    def solve_customSA(self):
         
         def update(s):
             i = np.random.randint(len(s))
