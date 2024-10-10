@@ -35,6 +35,7 @@ To use the IQAE solver for solving a generalized eigenvalue problem $H \boldsymb
 	- $\gamma$ the initial lagrange multiplier (typically zero by default)
 - define solver_parameters
 - define iqae(data_problem, data_solution, solver_parameters) : the solver\\
+
 Afterwards, you can run the nested box algorithm iterations and gamma-search iterations (see examples)
 
 ## Examples
