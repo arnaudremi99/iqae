@@ -31,7 +31,7 @@ To use the IQAE solver for solving a generalized eigenvalue problem $H \boldsymb
 	- $K$ the number of binary variables per continuous variables
 - define data_solution(u,dz,gamma) : 
 	- $\boldsymbol u$ the initial solution (typically zero by default), 
-	- d$\boldsymbol z$ = $\boldsymbol u_\mathrm{max} - \boldsymbol u_\mathrm{min}$ (typically a constant vector by default)
+	- $\mathrm{d}\boldsymbol z$ = $\boldsymbol u_\mathrm{max} - \boldsymbol u_\mathrm{min}$ (typically a constant vector by default)
 	- $\gamma$ the initial lagrange multiplier (typically zero by default)
 - define solver_parameters
 - define iqae(data_problem, data_solution, solver_parameters) : the solver
@@ -50,7 +50,7 @@ cd example2
 python3 example2.py
 ```
 
-Example 3 - Helmholtz problem in $\mathbb{R}^{25}$ with heterogeneous air-SiO$_2$ medium:
+Example 3 - Helmholtz problem in $\mathbb{R}^{25}$ with heterogeneous air-SiO2 medium:
 ```bash
 cd example3
 python3 example3.py
