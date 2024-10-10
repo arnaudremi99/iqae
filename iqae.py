@@ -63,8 +63,9 @@ class Data_solution:
         self.dz    = dz
         self.gamma = gamma
         self.gamma_store = []
-        self.n      = n
-        self.cost   = []
+        self.n         = n
+        self.cost      = []
+        self.u_store   = []
         self.gamma_bounds  = [None,None]
         self.energy_bounds = [None,None] # for secant method
         self.psi   = None
@@ -530,5 +531,21 @@ def get_projector(vec, M):
             P[i,j] = float(np.conjugate(vec[i]) * vec[j])
             #P[i,j] = float(psi[i] * psi[j])
     return P
+
+
+def save_results(iqae):
+    filename_cost = f"results/cost_N={iqae.data_problem.N}_K={iqae.data_problem.K}_maxiter={iqae.solver_parameters.maxiter}_maxiter_gamma={iqae.solver_parameters.maxiter_gamma}_numreads={iqae.solver_parameters.numreads}_alpha={iqae.solver_parameters.alpha}_n={0}_annealingtime={iqae.solver_parameters.annealingtime}_solvertype={iqae.solver_parameters.solver_type}_N_flips={iqae.solver_parameters.N_iter_per_reads}_perturbation={iqae.solver_parameters.perturbation}_sym.txt"
+    with open(filename_cost, 'a') as file:
+        np.savetxt(file, [iqae.data_solution.cost], delimiter=' ', newline='\n', comments='')
+    filename_v = f"results/v_N={iqae.data_problem.N}_K={iqae.data_problem.K}_maxiter={iqae.solver_parameters.maxiter}_maxiter_gamma={iqae.solver_parameters.maxiter_gamma}_numreads={iqae.solver_parameters.numreads}_alpha={iqae.solver_parameters.alpha}_n={0}_annealingtime={iqae.solver_parameters.annealingtime}_solvertype={iqae.solver_parameters.solver_type}_N_flips={iqae.solver_parameters.N_iter_per_reads}_perturbation={iqae.solver_parameters.perturbation}_sym.txt"
+    with open(filename_v, 'a') as file:
+        np.savetxt(file, [iqae.data_solution.u], delimiter=' ', newline='\n', comments='')
+    filename_gamma = f"results/gamma_N={iqae.data_problem.N}_K={iqae.data_problem.K}_maxiter={iqae.solver_parameters.maxiter}_maxiter_gamma={iqae.solver_parameters.maxiter_gamma}_numreads={iqae.solver_parameters.numreads}_alpha={iqae.solver_parameters.alpha}_n={0}_annealingtime={iqae.solver_parameters.annealingtime}_solvertype={iqae.solver_parameters.solver_type}_N_flips={iqae.solver_parameters.N_iter_per_reads}_perturbation={iqae.solver_parameters.perturbation}_sym.txt"
+    with open(filename_gamma, 'a') as file:
+        np.savetxt(file, [iqae.data_solution.gamma_store], delimiter=' ', newline='\n', comments='')
+    filename_u_store = f"results/u_store_N={iqae.data_problem.N}_K={iqae.data_problem.K}_maxiter={iqae.solver_parameters.maxiter}_maxiter_gamma={iqae.solver_parameters.maxiter_gamma}_numreads={iqae.solver_parameters.numreads}_alpha={iqae.solver_parameters.alpha}_n={0}_annealingtime={iqae.solver_parameters.annealingtime}_solvertype={iqae.solver_parameters.solver_type}_N_flips={iqae.solver_parameters.N_iter_per_reads}_perturbation={iqae.solver_parameters.perturbation}_sym.txt"
+    with open(filename_u_store, 'a') as file:
+        np.savetxt(file, [iqae.data_solution.u_store], delimiter=' ', newline='\n', comments='')
+
 
 
