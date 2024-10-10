@@ -13,7 +13,7 @@ def main():
 
     data_prob = Data_problem(H=H, M=M, N=N, K=2) # Initializes the data related to the problem. Here we choose to set K=2, i.e. we have 2 binary variables per continuous variables
     data_sol  = Data_solution(u=np.zeros(N), dz=2*np.ones(N), gamma=0) # Initialize the data related to the problem solution
-    solver_params = Solver_parameters(solver_type='SA', maxiter=10, maxiter_gamma=10, annealingtime=100, N_iter_per_reads=None, numreads=1000, alpha=0.5, linesearch_method='bisection', perturbation=0) # Solver parameters
+    solver_params = Solver_parameters(solver_type='QA', maxiter=100, maxiter_gamma=10, annealingtime=100, N_iter_per_reads=None, numreads=1000, alpha=np.sqrt(2)/2, linesearch_method='bisection', perturbation=0) # Solver parameters
     iqae = Solver(data_sol, data_prob, solver_params)
 
 
@@ -32,7 +32,6 @@ def main():
         iqae.update_cost()
         tqdm(range(iqae.solver_parameters.maxiter)).set_postfix(cost=f"{iqae.data_solution.cost[-1]}")
 
-
     #---
     # save result
     #---
@@ -43,5 +42,5 @@ def main():
     plt.savefig(f'solution.png', transparent=True, bbox_inches = 'tight')
 
 if __name__ == '__main__':
-    print('Example 1 : Helmholtz problem in R^3 with homogeneous vacuum medium')
+    print('Solves the 1D Helmholtz problem at high precision (100 box-algorithm iterations)')
     main()

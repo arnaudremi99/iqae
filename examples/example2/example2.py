@@ -30,16 +30,18 @@ def main():
         iqae.data_solution.u = iqae.solve()
         iqae.update_dz()
         iqae.update_cost()
+        iqae.data_solution.u_store.append(iqae.data_solution.u)
         tqdm(range(iqae.solver_parameters.maxiter)).set_postfix(cost=f"{iqae.data_solution.cost[-1]}")
 
     #---
     # save result
     #---
+    save_results(iqae)
     plt.rcParams['figure.dpi'] = 1000
     fig, ax = plt.subplots(figsize=(4, 2.5))
     ax.plot(range(len(M)), iqae.data_solution.u, ".",  markersize=5, color='#5ec962')
     plt.savefig(f'solution.png', transparent=True, bbox_inches = 'tight')
 
 if __name__ == '__main__':
-    print('Solves the 1D Helmholtz problem at high precision (100 box-algorithm iterations)')
+    print('Example 2 : Helmholtz problem in R^25 with homogeneous vacuum medium')
     main()
